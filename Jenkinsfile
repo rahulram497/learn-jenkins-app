@@ -92,6 +92,14 @@ pipeline {
             }
         }
 
+        stage('Manual approval') {
+            steps {
+                timeout(time: 10, unit: 'MINUTES') {
+                    input message: 'Ship to PROD?', ok: 'Yes, ship it!'
+                }
+            }
+        }
+
         stage('Deploy Prod') {
             agent {
                 docker {
